@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Proptypes from 'prop-types';
+import './Wallet.css';
+import { fetchCurrency } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -10,6 +12,11 @@ class Wallet extends React.Component {
     };
   }
 
+  componentDidMount() {
+    const { currencyDispatch } = this.props;
+    currencyDispatch();
+  }
+
   render() {
     const {
       userEmail,
@@ -17,12 +24,18 @@ class Wallet extends React.Component {
     const {
       despesaTotal,
     } = this.state;
-    console.log(userEmail);
     return (
-      <header>
-        <p data-testid="email-field">{ userEmail }</p>
-        <p data-testid="total-field">{ `R$ ${despesaTotal}` }</p>
-        <p data-testid="header-currency-field">BRL</p>
+      <header className="header">
+        <img
+          className="img-trybe"
+          src="https://www.abcdacomunicacao.com.br/wp-content/uploads/Trybe_logo-baixa.png"
+          alt="img"
+        />
+        <div className="header-div">
+          <p data-testid="email-field">{ `Email: ${userEmail} ` }</p>
+          <p data-testid="total-field">{ `R$ ${despesaTotal}` }</p>
+          <p data-testid="header-currency-field">BRL</p>
+        </div>
       </header>
     );
   }
@@ -32,8 +45,13 @@ const mapStateToProps = (state) => ({
   userEmail: state.user.email,
 });
 
-export default connect(mapStateToProps)(Wallet);
+const mapDispatchToProps = (dispatch) => ({
+  currencyDispatch: () => dispatch(fetchCurrency()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 
 Wallet.propTypes = {
   userEmail: Proptypes.string.isRequired,
+  currencyDispatch: Proptypes.func.isRequired,
 };

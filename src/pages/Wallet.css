@@ -1,0 +1,21 @@
+.header {
+  align-items: center;
+  background-color: whitesmoke;
+  display: flex;
+  justify-content: space-between;
+}
+
+.img-trybe {
+  height: 30px;
+  margin-left: 30px;
+  width: 100px;
+}
+
+.header-div {
+  display: flex;
+  margin-right: 30px;
+}
+
+.header-div p {
+  margin-right: 8px;
+}
