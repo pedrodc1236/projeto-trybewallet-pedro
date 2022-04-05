@@ -1,4 +1,4 @@
-import { WALLET_ACTION, API_ACTION, REMOVE_ACTION } from '../actions';
+import { WALLET_ACTION, API_ACTION, REMOVE_ACTION, EDIT_ACTION } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -22,6 +22,13 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       expenses: [...state.expenses
         .filter((expense) => expense.id !== action.payload)],
+    };
+  case EDIT_ACTION:
+    return {
+      ...state,
+      expenses: [...state.expenses.filter((expense) => expense.id !== action.payload.id),
+        action.payload,
+      ].sort((a, b) => a.id - b.id),
     };
   default:
     return state;

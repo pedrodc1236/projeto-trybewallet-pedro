@@ -4,6 +4,7 @@ export const USER_ACTION = 'USER_ACTION';
 export const WALLET_ACTION = 'WALLET_ACTION';
 export const API_ACTION = 'API_ACTION';
 export const REMOVE_ACTION = 'REMOVE_ACTION';
+export const EDIT_ACTION = 'EDIT_ACTION';
 
 export const loginAction = (payload) => ({
   type: USER_ACTION,
@@ -22,6 +23,11 @@ export const getApi = (api) => ({
 
 export const Remove = (payload) => ({
   type: REMOVE_ACTION,
+  payload,
+});
+
+export const Edit = (payload) => ({
+  type: EDIT_ACTION,
   payload,
 });
 
