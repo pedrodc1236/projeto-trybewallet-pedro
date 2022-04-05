@@ -3,20 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Wallet.css';
 import { fetchCurrency, fetchAll, Remove, Edit } from '../actions';
+import defaultState from '../defaultState';
 
 class Wallet extends React.Component {
   constructor() {
     super();
-    this.state = {
-      id: 0,
-      value: 0,
-      description: '',
-      currency: 'USD',
-      method: 'Dinheiro',
-      tag: 'Alimentação',
-      change: false,
-      exchangeRates: {},
-    };
+    this.state = defaultState;
   }
 
   componentDidMount() {
@@ -24,12 +16,7 @@ class Wallet extends React.Component {
     currencyDispatch();
   }
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  }
+  handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   handleClick = () => {
     const { appDadosDispatch } = this.props;
@@ -40,11 +27,6 @@ class Wallet extends React.Component {
       value: 0,
       description: '',
     }));
-  }
-
-  removeClick = (id) => {
-    const { removeDispatch } = this.props;
-    removeDispatch(id);
   }
 
   editClick = (id) => {
@@ -65,13 +47,12 @@ class Wallet extends React.Component {
   editDespense = () => {
     const { editDispatch } = this.props;
     const { id, value, description, currency, method, tag, exchangeRates } = this.state;
-    console.log(exchangeRates);
     editDispatch({ id, value, description, currency, method, tag, exchangeRates });
   }
 
   render() {
-    const { userEmail, coins, expenses } = this.props;
-    const { id, value, description, currency, method, tag, change } = this.state;
+    const { userEmail, coins, expenses, removeDispatch } = this.props;
+    const { value, description, currency, method, tag, change } = this.state;
     const filtro = expenses.map((el) => {
       const valor = el.value;
       const moeda = el.currency;
@@ -230,7 +211,7 @@ class Wallet extends React.Component {
                   <button
                     data-testid="delete-btn"
                     type="button"
-                    onClick={ () => this.removeClick(expense.id) }
+                    onClick={ () => removeDispatch(expense.id) }
                   >
                     Excluir
                   </button>
@@ -264,4 +245,5 @@ Wallet.propTypes = {
     PropTypes.objectOf(PropTypes.any),
   ).isRequired,
   removeDispatch: PropTypes.func.isRequired,
+  editDispatch: PropTypes.func.isRequired,
 };
