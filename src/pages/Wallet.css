@@ -1,8 +1,45 @@
+body {
+  background-color: #f6faf6 ! important;
+}
+
+:root {
+
+  --verde-escuro: rgb(3, 107, 82);
+
+  --verde-claro: rgb(47, 193, 140);
+
+  --roxo-escuro: rgb(65, 25, 127);
+
+  --roxo-claro: rgb(137, 88, 163);
+
+  --azul-claro: rgb(0, 213, 226);
+
+  --azul-escuro: rgb(0, 109, 251);
+
+  --cinza-claro: rgb(225, 229, 235);
+
+  --cinza1: rgb(62, 66, 75);
+
+  --cinza2: rgb(40, 42, 47);
+
+  --cinza3: rgb(30, 31, 36);
+
+  --cinza4: rgb(26, 27, 28);
+}
+
 .header {
   align-items: center;
   background-color: whitesmoke;
   display: flex;
+  font-size: 20px;
+  height: 100px;
   justify-content: space-between;
+}
+
+.header h1 {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 100px;
+  text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0 -5px 35px rgba(255, 255, 255, 0.3);
 }
 
 .img-trybe {
@@ -13,9 +50,62 @@
 
 .header-div {
   display: flex;
+  flex-direction: column;
   margin-right: 30px;
+  text-align: center;
 }
 
-.header-div p {
+.money {
+  color: var(--verde-escuro);
+  display: flex;
+  text-align: center;
+}
+
+.email {
+  font-size: 20px;
   margin-right: 8px;
+}
+
+.despesa {
+  font-size: 35px;
+  margin-right: 8px;
+}
+
+.section-form {
+  align-items: center;
+  background-color: #e4f5e4;
+  display: flex;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 30px;
+}
+
+label {
+  margin: 0 30px auto;
+  text-align: center;
+}
+
+input {
+  text-align: center;
+}
+
+select {
+  text-align: center;
+}
+
+.main-table {
+  height: 700px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+}
+
+.head-tabela {
+  font-size: 20px;
+}
+
+.body-tabela {
+  font-size: 18px;
 }

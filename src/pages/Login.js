@@ -59,31 +59,46 @@ class Login extends React.Component {
     return (
       <form className="form">
         <fieldset className="login">
-          <h3>TrybeWallet</h3>
-          <label htmlFor="email-input">
-            Email:
-            <input
-              data-testid="email-input"
-              id="email-input"
-              type="email"
-              name="email"
-              value={ email }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="senha-input">
-            Senha:
-            <input
-              data-testid="password-input"
-              id="senha-input"
-              type="password"
-              name="senha"
-              value={ senha }
-              onChange={ this.handleChange }
-            />
-          </label>
+          <h3
+            className="head-trybeWallet"
+          >
+            TrybeWallet
+
+          </h3>
+          <div className="login-div">
+            <label
+              htmlFor="email-input"
+              className="form-label"
+            >
+              Email:
+              <input
+                data-testid="email-input"
+                className="form-control"
+                id="email-input"
+                type="email"
+                name="email"
+                value={ email }
+                onChange={ this.handleChange }
+              />
+            </label>
+            <label
+              htmlFor="senha-input"
+            >
+              Senha:
+              <input
+                data-testid="password-input"
+                id="senha-input"
+                type="password"
+                name="senha"
+                value={ senha }
+                className="form-control"
+                onChange={ this.handleChange }
+              />
+            </label>
+          </div>
           <button
-            type="submit"
+            type="button"
+            className="btn btn-success"
             disabled={ disabledBtn }
             onClick={ this.handleClick }
           >

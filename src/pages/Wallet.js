@@ -48,6 +48,14 @@ class Wallet extends React.Component {
     const { editDispatch } = this.props;
     const { id, value, description, currency, method, tag, exchangeRates } = this.state;
     editDispatch({ id, value, description, currency, method, tag, exchangeRates });
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
+      change: false,
+    });
   }
 
   render() {
@@ -74,13 +82,19 @@ class Wallet extends React.Component {
             src="https://www.abcdacomunicacao.com.br/wp-content/uploads/Trybe_logo-baixa.png"
             alt="img"
           />
+          <h1>TrybeWallet</h1>
           <div className="header-div">
-            <p data-testid="email-field">{ `Email: ${userEmail} ` }</p>
-            <p data-testid="total-field">{ total.toFixed(2) }</p>
-            <p data-testid="header-currency-field">BRL</p>
+            <p className="email" data-testid="email-field">{ `Email: ${userEmail} ` }</p>
+            <div className="money">
+              <p className="despesa" data-testid="total-field">
+                { `Despesa ${total
+                  .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}` }
+              </p>
+              <p data-testid="header-currency-field">BRL</p>
+            </div>
           </div>
         </header>
-        <section>
+        <section className="section-form">
           <label htmlFor="input-valor">
             Valor:
             <input
@@ -89,6 +103,17 @@ class Wallet extends React.Component {
               name="value"
               value={ value }
               type="number"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="description">
+            Descrição:
+            <input
+              data-testid="description-input"
+              id="description"
+              type="text"
+              name="description"
+              value={ description }
               onChange={ this.handleChange }
             />
           </label>
@@ -141,23 +166,13 @@ class Wallet extends React.Component {
               <option>Saúde</option>
             </select>
           </label>
-          <label htmlFor="description">
-            Descrição:
-            <input
-              data-testid="description-input"
-              id="description"
-              type="text"
-              name="description"
-              value={ description }
-              onChange={ this.handleChange }
-            />
-          </label>
           {
             change
               ? (
                 <button
                   type="button"
                   onClick={ this.editDespense }
+                  className="btn btn-success"
                 >
                   Editar despesa
                 </button>
@@ -165,61 +180,70 @@ class Wallet extends React.Component {
               : (
                 <button
                   type="button"
+                  className="btn btn-success"
                   onClick={ () => this.handleClick() }
                 >
                   Adicionar despesa
                 </button>)
           }
         </section>
-        <table>
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
-            </tr>
-          </thead>
-          <tbody>
-            { expenses.map((expense) => (
-              <tr key={ expense.id }>
-                <td>{ expense.description }</td>
-                <td>{ expense.tag }</td>
-                <td>{ expense.method }</td>
-                <td>{ Number(expense.value).toFixed(2) }</td>
-                <td>{ expense.exchangeRates[expense.currency].name }</td>
-                <td>{ Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
-                <td>
-                  { (Number(expense.value)
+        <main className="main-table">
+          <table className="table table-success table-striped">
+            <thead className="head-tabela">
+              <tr>
+                <th>Descrição</th>
+                <th>Tag</th>
+                <th>Método de pagamento</th>
+                <th>Valor</th>
+                <th>Moeda</th>
+                <th>Câmbio utilizado</th>
+                <th>Valor convertido</th>
+                <th>Moeda de conversão</th>
+                <th>Editar/Excluir</th>
+              </tr>
+            </thead>
+            <tbody className="body-tabela">
+              { expenses.map((expense) => (
+                <tr key={ expense.id }>
+                  <td>{ expense.description }</td>
+                  <td>{ expense.tag }</td>
+                  <td>{ expense.method }</td>
+                  <td>{ Number(expense.value).toFixed(2) }</td>
+                  <td>{ expense.exchangeRates[expense.currency].name }</td>
+                  <td>
+                    { Number(expense.exchangeRates[expense.currency].ask)
+                      .toFixed(2)}
+
+                  </td>
+                  <td>
+                    { (Number(expense.value)
                     * Number(expense.exchangeRates[expense.currency]
                       .ask)).toFixed(2) }
-                </td>
-                <td>Real</td>
-                <td>
-                  <button
-                    data-testid="edit-btn"
-                    type="button"
-                    onClick={ () => this.editClick(expense.id) }
-                  >
-                    Editar
-                  </button>
-                  <button
-                    data-testid="delete-btn"
-                    type="button"
-                    onClick={ () => removeDispatch(expense.id) }
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            )) }
-          </tbody>
-        </table>
+                  </td>
+                  <td>Real</td>
+                  <td>
+                    <button
+                      data-testid="edit-btn"
+                      type="button"
+                      onClick={ () => this.editClick(expense.id) }
+                      className="btn btn-secondary"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      data-testid="delete-btn"
+                      type="button"
+                      onClick={ () => removeDispatch(expense.id) }
+                      className="btn btn-danger"
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              )) }
+            </tbody>
+          </table>
+        </main>
       </>
     );
   }
