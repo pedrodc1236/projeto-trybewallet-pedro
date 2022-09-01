@@ -50,7 +50,7 @@ Após cada um dos passos, haverá um exemplo do comando a ser digitado para faze
   npm install
 ```
 
-4. Por último, rode o comando **npm start** e acesse o projeto via browser, no caminho `http://localhost:3000/project-trybewallet-`.
+4. Por último, rode o comando **npm start** e acesse o projeto via browser, no caminho `http://localhost:3000/projeto-trybewallet-pedro`.
 
 ```javascript
   npm start
